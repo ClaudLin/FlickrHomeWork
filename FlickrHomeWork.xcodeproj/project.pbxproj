@@ -15,6 +15,9 @@
 		EA004B942480EB76007C1D4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA004B922480EB76007C1D4B /* LaunchScreen.storyboard */; };
 		EA004B9F2480EB77007C1D4B /* FlickrHomeWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA004B9E2480EB77007C1D4B /* FlickrHomeWorkTests.swift */; };
 		EA004BAA2480EB77007C1D4B /* FlickrHomeWorkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA004BA92480EB77007C1D4B /* FlickrHomeWorkUITests.swift */; };
+		EA004BB82480F192007C1D4B /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA004BB72480F192007C1D4B /* ShowViewController.swift */; };
+		EA004BBA2480F1EF007C1D4B /* CommonNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA004BB92480F1EF007C1D4B /* CommonNetwork.swift */; };
+		EA004BBC2480F1F9007C1D4B /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA004BBB2480F1F9007C1D4B /* FavoriteVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		EA004BA52480EB77007C1D4B /* FlickrHomeWorkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickrHomeWorkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA004BA92480EB77007C1D4B /* FlickrHomeWorkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrHomeWorkUITests.swift; sourceTree = "<group>"; };
 		EA004BAB2480EB77007C1D4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA004BB72480F192007C1D4B /* ShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
+		EA004BB92480F1EF007C1D4B /* CommonNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNetwork.swift; sourceTree = "<group>"; };
+		EA004BBB2480F1F9007C1D4B /* FavoriteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				EA004B872480EB73007C1D4B /* AppDelegate.swift */,
+				EA004BB92480F1EF007C1D4B /* CommonNetwork.swift */,
+				EA004BB72480F192007C1D4B /* ShowViewController.swift */,
+				EA004BBB2480F1F9007C1D4B /* FavoriteVC.swift */,
 				EA004B892480EB73007C1D4B /* SceneDelegate.swift */,
 				EA004B8B2480EB73007C1D4B /* ViewController.swift */,
 				EA004B8D2480EB73007C1D4B /* Main.storyboard */,
@@ -259,9 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA004BBA2480F1EF007C1D4B /* CommonNetwork.swift in Sources */,
 				EA004B8C2480EB73007C1D4B /* ViewController.swift in Sources */,
 				EA004B882480EB73007C1D4B /* AppDelegate.swift in Sources */,
 				EA004B8A2480EB73007C1D4B /* SceneDelegate.swift in Sources */,
+				EA004BBC2480F1F9007C1D4B /* FavoriteVC.swift in Sources */,
+				EA004BB82480F192007C1D4B /* ShowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
