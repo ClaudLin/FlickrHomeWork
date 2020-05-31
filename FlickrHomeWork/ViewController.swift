@@ -13,7 +13,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var pageCountTF: UITextField!
     @IBOutlet weak var searchTypeTF: UITextField!
-    
+    let searchObject = SearchObject.sharedManager
     override func viewDidLoad() {
             super.viewDidLoad()
             navigationItem.title = "搜尋輸入頁"
@@ -34,12 +34,19 @@ class ViewController: UIViewController,UITextFieldDelegate {
         }
         
         @objc func searchButtonAction() {
-            let vc = ShowViewController()
-            let str = searchTypeTF.text?.trimmingCharacters(in: .whitespaces)
-            let maxInt = (pageCountTF.text?.trimmingCharacters(in: .whitespaces))!
-            vc.maxInt = maxInt
-            vc.searchStr = str ?? ""
-            self.navigationController?.pushViewController(vc, animated: true)
+            searchObject.searchType = searchTypeTF.text?.trimmingCharacters(in: .whitespaces)
+            searchObject.pageCount = (pageCountTF.text?.trimmingCharacters(in: .whitespaces))!
+            let MainTabBar:UITabBarController? = self.storyboard?.instantiateViewController(identifier: "MainTabBar") as? UITabBarController ?? nil
+            if MainTabBar != nil{
+                MainTabBar!.selectedIndex = 0
+                self.navigationController?.pushViewController(MainTabBar!, animated: true)
+            }
+//            let vc = ShowViewController()
+
+//            vc.maxInt = maxInt
+//            vc.searchStr = str ?? ""
+//            self.navigationController?.pushViewController(vc, animated: true)
+            
         }
         
         @objc func textFieldDidChange(_ textfield:UITextField){

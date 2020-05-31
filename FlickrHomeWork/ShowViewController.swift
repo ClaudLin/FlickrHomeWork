@@ -18,11 +18,12 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
     var favoriteArray:Array<Any>?
     var userDefault = UserDefaults.standard
     var commonNetwork = CommonNetwork.sharedManager
+    let searchObject = SearchObject.sharedManager
     //https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=370ea9786aaf3fd315f259f0506298e7&text=apple&per_page=20&format=json&nojsoncallback=1
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchStr = userDefault.value(forKey: "searchText") as! String
-        maxInt = userDefault.value(forKey: "searchCount") as! String
+        searchStr = searchObject.searchType!
+        maxInt = searchObject.pageCount!
         let apiKey = userDefault.value(forKey: "api_key") as! String
         view.backgroundColor = UIColor.white
         tabBarController?.navigationItem.title = "搜尋覺結果 \(searchStr)"
@@ -52,11 +53,11 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
         
     func elementInit(){
         collectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionViewFlowLayout?.itemSize = CGSize(width: view.getFrame().width/2-10, height: 300)
+//        collectionViewFlowLayout?.itemSize = CGSize(width: view.getFrame().width/2-20, height: 450)
         collectionViewFlowLayout?.minimumInteritemSpacing = 5
-        collectionViewFlowLayout?.minimumLineSpacing = 5
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.getFrame().width, height: 300),collectionViewLayout:collectionViewFlowLayout!)
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionView")
+//        collectionViewFlowLayout?.minimumLineSpacing = 5
+        collectionView = UICollectionView(frame: view.getFrame(),collectionViewLayout:collectionViewFlowLayout!)
+        collectionView?.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomCollectionViewCell")
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.backgroundColor = UIColor.white
@@ -93,23 +94,22 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = UICollectionViewCell()
-        cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionView", for: indexPath)
+        
+        let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCollectionViewCell", for: indexPath) as! CustomCollectionViewCell
         let dic = dataArray![indexPath.row] as! Dictionary<String,Any>
-        createCell(cell: cell,dic: dic)
-        return cell
+        createCell(cell: customCell,dic: dic)
+        return customCell
     }
 
-    func createCell(cell:UICollectionViewCell,dic:Dictionary<String,Any>){
-        let imageView = UIImageView(frame: CGRect(x: cell.bounds.minX, y: cell.bounds.minY, width: cell.bounds.width, height: 250))//itemSize高度少50
+    func createCell(cell:CustomCollectionViewCell,dic:Dictionary<String,Any>){
+//        let imageView = UIImageView(frame: CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: 250))//itemSize高度少50
         let urlString = getUrlString(dic: dic)
         let imageData = try? Data(contentsOf: URL(string:urlString)!)
-        let label = UILabel(frame: CGRect(x: imageView.frame.minX, y: imageView.frame.maxY, width: imageView.bounds.width, height: 50))
-        label.textAlignment = .center
-        label.text = dic["title"] as? String
-        imageView.image = UIImage(data: imageData!)
-        cell.addSubview(label)
-        cell.addSubview(imageView)
+//        let label = UILabel(frame: CGRect(x: imageView.frame.minX, y: imageView.frame.maxY, width: imageView.frame.width, height: 100))
+        cell.label.text = dic["title"] as? String
+        cell.imageView.image = UIImage(data: imageData!)
+//        cell.addSubview(label)
+//        cell.addSubview(imageView)
     }
         
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
