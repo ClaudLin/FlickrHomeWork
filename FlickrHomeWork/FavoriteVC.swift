@@ -44,8 +44,8 @@ class FavoriteVC: UIViewController,UICollectionViewDelegateFlowLayout,UICollecti
     func elementInit(){
         collectionViewFlowLayout = UICollectionViewFlowLayout()
         collectionViewFlowLayout?.itemSize = CGSize(width: getFrame().width/2-10, height: 300)
-        collectionViewFlowLayout?.minimumInteritemSpacing = 5
-        collectionViewFlowLayout?.minimumLineSpacing = 5
+//        collectionViewFlowLayout?.minimumInteritemSpacing = 5
+//        collectionViewFlowLayout?.minimumLineSpacing = 5
         collectionView = UICollectionView(frame: getFrame(),collectionViewLayout:collectionViewFlowLayout!)
         collectionView?.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomCollectionViewCell")
         collectionView?.delegate = self
