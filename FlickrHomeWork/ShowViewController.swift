@@ -53,8 +53,8 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
         
     func elementInit(){
         collectionViewFlowLayout = UICollectionViewFlowLayout()
-//        collectionViewFlowLayout?.itemSize = CGSize(width: view.getFrame().width/2-20, height: 450)
-        collectionViewFlowLayout?.minimumInteritemSpacing = 5
+        collectionViewFlowLayout?.itemSize = CGSize(width: view.getFrame().width/2-20, height: 300)
+//        collectionViewFlowLayout?.minimumInteritemSpacing = 5
 //        collectionViewFlowLayout?.minimumLineSpacing = 5
         collectionView = UICollectionView(frame: view.getFrame(),collectionViewLayout:collectionViewFlowLayout!)
         collectionView?.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomCollectionViewCell")
@@ -94,7 +94,6 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCollectionViewCell", for: indexPath) as! CustomCollectionViewCell
         let dic = dataArray![indexPath.row] as! Dictionary<String,Any>
         createCell(cell: customCell,dic: dic)
@@ -102,14 +101,10 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
     }
 
     func createCell(cell:CustomCollectionViewCell,dic:Dictionary<String,Any>){
-//        let imageView = UIImageView(frame: CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: 250))//itemSize高度少50
         let urlString = getUrlString(dic: dic)
         let imageData = try? Data(contentsOf: URL(string:urlString)!)
-//        let label = UILabel(frame: CGRect(x: imageView.frame.minX, y: imageView.frame.maxY, width: imageView.frame.width, height: 100))
         cell.label.text = dic["title"] as? String
         cell.imageView.image = UIImage(data: imageData!)
-//        cell.addSubview(label)
-//        cell.addSubview(imageView)
     }
         
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -132,13 +127,16 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
                 }
             }
         }
-
+        var alertTitle = ""
         if(bool){
+            alertTitle = "取消我的最愛"
             favoriteArray?.remove(at: index)
         }else{
+            alertTitle = "新增我的最愛"
             favoriteArray?.append(dic)
         }
         userDefault.set(favoriteArray, forKey: "favoriteArray")
+        showAlert(title: alertTitle, message: "成功")
     }
         
     func getUrlString(dic:Dictionary<String,Any>) -> String{
@@ -147,6 +145,13 @@ class ShowViewController: UIViewController,UICollectionViewDelegateFlowLayout,UI
         let ID = dic["id"]!
         let server = dic["server"]!
         return "https://farm\(farm).staticflickr.com/\(server)/\(ID)_\(secret)_m.jpg"
+    }
+    
+    func showAlert(title:String,message:String){
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+        alertVC.addAction(alertAction)
+        present(alertVC, animated: true, completion: nil)
     }
     
 }

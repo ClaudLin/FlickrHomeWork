@@ -47,7 +47,7 @@ class FavoriteVC: UIViewController,UICollectionViewDelegateFlowLayout,UICollecti
         collectionViewFlowLayout?.minimumInteritemSpacing = 5
         collectionViewFlowLayout?.minimumLineSpacing = 5
         collectionView = UICollectionView(frame: getFrame(),collectionViewLayout:collectionViewFlowLayout!)
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionView")
+        collectionView?.register(UINib(nibName: "CustomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomCollectionViewCell")
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.backgroundColor = UIColor.white
@@ -58,16 +58,11 @@ class FavoriteVC: UIViewController,UICollectionViewDelegateFlowLayout,UICollecti
         return (favoriteArray?.count)!
     }
     
-    func createCell(cell:UICollectionViewCell,dic:Dictionary<String,Any>){
-        let imageView = UIImageView(frame: CGRect(x: cell.bounds.minX, y: cell.bounds.minY, width: cell.bounds.width, height: 250))//itemSize高度少50
+    func createCell(cell:CustomCollectionViewCell,dic:Dictionary<String,Any>){
         let urlString = getUrlString(dic: dic)
         let imageData = try? Data(contentsOf: URL(string:urlString)!)
-        let label = UILabel(frame: CGRect(x: imageView.frame.minX, y: imageView.frame.maxY, width: imageView.bounds.width, height: 50))
-        label.textAlignment = .center
-        label.text = dic["title"] as? String
-        imageView.image = UIImage(data: imageData!)
-        cell.addSubview(label)
-        cell.addSubview(imageView)
+        cell.label.text = dic["title"] as? String
+        cell.imageView.image = UIImage(data: imageData!)
     }
     
     func getUrlString(dic:Dictionary<String,Any>) -> String{
@@ -79,11 +74,10 @@ class FavoriteVC: UIViewController,UICollectionViewDelegateFlowLayout,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = UICollectionViewCell()
-        cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionView", for: indexPath)
+        let customCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCollectionViewCell", for: indexPath) as! CustomCollectionViewCell
         let dic = favoriteArray![indexPath.row] as! Dictionary<String,Any>
-        createCell(cell: cell,dic: dic)
-        return cell
+        createCell(cell: customCell,dic: dic)
+        return customCell
     }
     /*
     // MARK: - Navigation
